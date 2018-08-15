@@ -36,6 +36,9 @@ class ElasticDatastore(Datastore):
             tx["blockTimestamp"] = block_timestamp
             # Convert wei into ether
             tx["value"] = int(tx["value"], 0) / self.WEI_ETH_FACTOR
+            tx['gas'] = int(tx["gas"], 0)
+            tx['gasPrice'] = int(tx["gasPrice"], 0)
+            tx['nonce'] = int(tx["nonce"], 0)
             tx_value_sum += tx["value"]
             self.actions.append(
                 {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": tx}
