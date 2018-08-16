@@ -40,24 +40,30 @@ class ElasticDatastore(Datastore):
             tx['gasPrice'] = int(tx["gasPrice"], 0) / self.WEI_ETH_FACTOR
             tx['nonce'] = int(tx["nonce"], 0)
             tx['transactionIndex'] = int(tx["transactionIndex"], 0)
+            del tx['publicKey']
+            del tx['r']
+            del tx['s']
+            del tx['v']
+            del tx['raw']
+            del tx['standardV']
             tx_value_sum += tx["value"]
             self.actions.append(
                 {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": tx}
             )
             tx_hashes.append(tx["hash"])
 
-        block["transactions"] = tx_hashes
-        block["number"] = block_nb
-        block["timestamp"] = block_timestamp
-        block["gasLimit"] = int(block["gasLimit"], 0)
-        block["gasUsed"] = int(block["gasUsed"], 0)
-        block["size"] = int(block["size"], 0)
-        block["transactionCount"] = len(tx_hashes)
-        block["txValueSum"] = tx_value_sum
+        # block["transactions"] = tx_hashes
+        # block["number"] = block_nb
+        # block["timestamp"] = block_timestamp
+        # block["gasLimit"] = int(block["gasLimit"], 0)
+        # block["gasUsed"] = int(block["gasUsed"], 0)
+        # block["size"] = int(block["size"], 0)
+        # block["transactionCount"] = len(tx_hashes)
+        # block["txValueSum"] = tx_value_sum
 
-        self.actions.append(
-            {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": block}
-        )
+        # self.actions.append(
+        #     {"_index": self.B_INDEX_NAME, "_type": "b", "_id": block_nb, "_source": block}
+        # )
 
 
     def save(self):
