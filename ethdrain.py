@@ -162,10 +162,10 @@ if __name__ == "__main__":
         try:
             args.start_block = ElasticDatastore.request(
                 args.esurl,
-                index=ElasticDatastore.B_INDEX_NAME,
+                index=ElasticDatastore.TX_INDEX_NAME,
                 size=1,
-                sort="number:desc",
-            )["hits"]["hits"][0]["_source"]["number"]
+                sort="blockNumber:desc",
+            )["hits"]["hits"][0]["_source"]["blockNumber"]
 
         except (es_exceptions.NotFoundError, es_exceptions.RequestError):
             args.start_block = 0
