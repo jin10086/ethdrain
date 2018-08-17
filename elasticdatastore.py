@@ -25,8 +25,8 @@ class ElasticDatastore(Datastore):
         block = rpc_block["result"]
 
         transactions = block["transactions"]
-        tx_hashes = list()
-        tx_value_sum = 0
+        # tx_hashes = list()
+        # tx_value_sum = 0
 
         block_nb = int(block["number"], 0)
         block_timestamp = datetime.datetime.fromtimestamp(int(block["timestamp"], 0))
@@ -46,11 +46,11 @@ class ElasticDatastore(Datastore):
             del tx['v']
             del tx['raw']
             del tx['standardV']
-            tx_value_sum += tx["value"]
+            # tx_value_sum += tx["value"]
             self.actions.append(
                 {"_index": self.TX_INDEX_NAME, "_type": "tx", "_id": tx["hash"], "_source": tx}
             )
-            tx_hashes.append(tx["hash"])
+            # tx_hashes.append(tx["hash"])
 
         # block["transactions"] = tx_hashes
         # block["number"] = block_nb
