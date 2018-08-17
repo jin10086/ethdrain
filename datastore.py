@@ -14,4 +14,3 @@ class Datastore:
 
     def save(self):
         raise NotImplementedError
-
